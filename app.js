@@ -58,6 +58,18 @@ function searchByTraits(people) {
   mainMenu(filteredPeople[selectedPerson-1], people);
 }
 
+function searchByHeight(people) {
+  let userInputHeight = prompt("How tall is the person?");
+
+  let newArray = people.filter(function (el) {
+    if(el.height == userInputHeight) {
+      return true;
+    }
+    // return true if el.Height matches userInputHeight
+  });
+  return newArray;
+}
+
 function searchByWeight(people) {
   let userInputWeight = prompt("How much does the person weigh?");
 
