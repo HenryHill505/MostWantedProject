@@ -24,7 +24,7 @@ function app(people){
 function searchByTraits(people) {
   let userSearchChoice = prompt("What would you like to search by? 'height', 'weight', 'eye color', 'gender', 'age', 'occupation'.");
   let filteredPeople;
-
+  
   switch(userSearchChoice) {
     case "height":
       filteredPeople = searchByHeight(people);
@@ -32,17 +32,30 @@ function searchByTraits(people) {
     case "weight":
       filteredPeople = searchByWeight(people);
       break;
-    // so on and so forth
+    case "eye color":
+      break;
+    case "gender":
+      break;
+    case "age":
+      break;
+    case "occupation":
+      break;
     default:
       alert("You entered an invalid search type! Please try again.");
       searchByTraits(people);
       break;
   }  
 
-  let foundPerson = filteredPeople[0];
+  let arrayIndexCounter = 0;
+  let searchResultArray = filteredPeople.map(function(el){
+    arrayIndexCounter++;
+    return arrayIndexCounter+". "+el.lastName+", "+el.firstName;
+  })
 
-  mainMenu(foundPerson, people);
+  let searchResultString = searchResultArray.join("\n");
+  let selectedPerson = prompt("The following people matched the search criteria:\n"+searchResultString);
 
+  mainMenu(filteredPeople[selectedPerson-1], people);
 }
 
 function searchByWeight(people) {
