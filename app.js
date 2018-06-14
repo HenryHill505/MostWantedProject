@@ -67,12 +67,18 @@ function mainMenu(person, people){
     alert("Could not find that individual.");
     return app(people); // restart
   }
-
+  let personPropertyKeys = Object.keys(person);
+  let personPropertyValues = Object.values(person);
   let displayOption = prompt("Found " + person.firstName + " " + person.lastName + " . Do you want to know their 'info', 'family', or 'descendants'? Type the option you want or 'restart' or 'quit'");
+
 
   switch(displayOption){
     case "info":
-    // TODO: get person's info
+      let displayString="";
+      for (let i=0;i<9;i++){
+        displayString += personPropertyKeys[i]+": "+personPropertyValues[i]+"\n";
+      }
+      alert(displayString);
     break;
     case "family":
     // TODO: get person's family
