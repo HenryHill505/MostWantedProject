@@ -67,18 +67,13 @@ function mainMenu(person, people){
     alert("Could not find that individual.");
     return app(people); // restart
   }
-  let personPropertyKeys = Object.keys(person);
-  let personPropertyValues = Object.values(person);
+
   let displayOption = prompt("Found " + person.firstName + " " + person.lastName + " . Do you want to know their 'info', 'family', or 'descendants'? Type the option you want or 'restart' or 'quit'");
 
 
   switch(displayOption){
     case "info":
-      let displayString="";
-      for (let i=0;i<9;i++){
-        displayString += personPropertyKeys[i]+": "+personPropertyValues[i]+"\n";
-      }
-      alert(displayString);
+      displayPerson(person);
     break;
     case "family":
     // TODO: get person's family
@@ -87,12 +82,12 @@ function mainMenu(person, people){
     // TODO: get person's descendants
     break;
     case "restart":
-    app(people); // restart
+      app(people); // restart
     break;
     case "quit":
-    return; // stop execution
+      return; // stop execution
     default:
-    return mainMenu(person, people); // ask again
+      return mainMenu(person, people); // ask again
   }
 }
 
@@ -121,10 +116,13 @@ function displayPeople(people){
 function displayPerson(person){
   // print all of the information about a person:
   // height, weight, age, name, occupation, eye color.
-  let personInfo = "First Name: " + person.firstName + "\n";
-  personInfo += "Last Name: " + person.lastName + "\n";
-  // TODO: finish getting the rest of the information to display
-  alert(personInfo);
+  let personPropertyKeys = Object.keys(person);
+  let personPropertyValues = Object.values(person);
+  let displayString="";
+  for (let i=0;i<9;i++){
+    displayString += personPropertyKeys[i]+": "+personPropertyValues[i]+"\n";
+  }
+  alert(displayString);
 }
 
 // function that prompts and validates user input, and change all input toLowerCase
