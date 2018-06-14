@@ -98,15 +98,11 @@ function searchByName(people){
   //loop through the array until the person is found, then alert the user
   for (i=0; i<arrayLength; i++){
     if (people[i].firstName.toLowerCase() === firstName && people[i].lastName.toLowerCase() === lastName){
-      alert(people[i].firstName+people[i].lastName+ " found.")
+      let selectedPerson = people[i];
+      mainMenu(selectedPerson,people);
       break;
     }
   }
-  // TODO: find the person using the name they entered
-
-
-
-
 }
 
 // alerts a list of people
@@ -127,10 +123,10 @@ function displayPerson(person){
 
 // function that prompts and validates user input, and change all input toLowerCase
 function promptFor(question, valid){
+  let response;
   do{
-    let response = prompt(question).trim().toLowerCase();
-  } 
-  while(!response || !valid(response));
+    response = prompt(question).trim().toLowerCase();
+  }while(!response || !valid(response));
   return response;
 }
 
