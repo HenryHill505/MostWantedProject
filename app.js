@@ -2,19 +2,21 @@
 Build all of your functions for displaying and gathering information below (GUI).
 */
 
+app(data);
+
 // app is the function called to start the entire application
 function app(people){
   var searchType = promptFor("Do you know the name of the person you are looking for? Enter 'yes' or 'no'", yesNo).toLowerCase();
   switch(searchType){
     case 'yes':
-    // TODO: search by name
+      searchByName(people);
     break;
     case 'no':
-    searchByTraits(people);
-    break;
+      searchByTraits(people);
+      break;
     default:
-    alert("Wrong! Please try again, following the instructions dummy. :)");
-    app(people); // restart app
+      alert("Wrong! Please try again, following the instructions dummy. :)");
+      app(people); // restart app
     break;
   }
 }
@@ -89,10 +91,21 @@ function mainMenu(person, people){
 }
 
 function searchByName(people){
-  var firstName = promptFor("What is the person's first name?", chars);
-  var lastName = promptFor("What is the person's last name?", chars);
+  let firstName = promptFor("What is the person's first name?", chars);
+  let lastName = promptFor("What is the person's last name?", chars);
+  let arrayLength = people.length;
 
+  //loop through the array until the person is found, then alert the user
+  for (i=0; i<arrayLength; i++){
+    if (people[i].firstName.toLowerCase() === firstName && people[i].lastName.toLowerCase() === lastName){
+      alert(people[i].firstName+people[i].lastName+ " found.")
+      break;
+    }
+  }
   // TODO: find the person using the name they entered
+
+
+
 
 }
 
@@ -112,10 +125,10 @@ function displayPerson(person){
   alert(personInfo);
 }
 
-// function that prompts and validates user input
+// function that prompts and validates user input, and change all input toLowerCase
 function promptFor(question, valid){
   do{
-    var response = prompt(question).trim();
+    var response = prompt(question).trim().toLowerCase();
   } while(!response || !valid(response));
   return response;
 }
