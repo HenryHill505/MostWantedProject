@@ -2,7 +2,7 @@
 Build all of your functions for displaying and gathering information below (GUI).
 */
 
-//app(data);
+app(data);
 
 // app is the function called to start the entire application
 function app(people){
@@ -39,6 +39,7 @@ function searchByTraits(people) {
       filteredPeople = searchByGender(people);
       break;
     case "age":
+      filteredPeople = searchByAge(people);
       break;
     case "occupation":
       filteredPeople = searchByOccupation(people);
@@ -62,15 +63,13 @@ function searchByTraits(people) {
 }
 
 function searchByAge(people){
-  let userInputAge = prompt("What is this person's eye color?");
+  let userInputAge = prompt("What is this person's age?");
 
   let newArray = people.filter(function (el) {
-    
-
-
-
-
-    // return true if el.eyeColor matches userInputEyeColor
+    if(calculateAgeFromBirthDate(el.dob)===Number(userInputAge)){
+      return true;
+    }
+    // return true if current date - el.dob matches userInputEyeColor
   });
   return newArray;
 }
@@ -232,5 +231,6 @@ function calculateAgeFromBirthDate(birthDateString){
   } else if(birthDate.getMonth()===today.getMonth()&&birthDate.getDate()>today.getDate()){
     age--
   }
+  return age;
 }
   
