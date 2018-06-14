@@ -31,8 +31,9 @@ function searchByTraits(people) {
       break;
     case "weight":
       filteredPeople = searchByWeight(people);
-      break;
+      break;  
     case "eye color":
+      filteredPeople = searchByEyeColor(people);
       break;
     case "gender":
       break;
@@ -56,6 +57,18 @@ function searchByTraits(people) {
   let selectedPerson = prompt("The following people matched the search criteria:\n"+searchResultString);
 
   mainMenu(filteredPeople[selectedPerson-1], people);
+}
+
+function searchByEyeColor(people){
+  let userInputEyeColor = prompt("What is this person's eye color?");
+
+  let newArray = people.filter(function (el) {
+    if(el.eyeColor == userInputEyeColor) {
+      return true;
+    }
+    // return true if el.eyeColor matches userInputEyeColor
+  });
+  return newArray;
 }
 
 function searchByHeight(people) {
