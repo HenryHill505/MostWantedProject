@@ -21,34 +21,43 @@ function app(people){
   }
 }
 
-function searchByTraits(people) {
+function executeSearch(people){
   let userSearchChoice = prompt("What would you like to search by? 'height', 'weight', 'eye color', 'gender', 'age', 'occupation'.");
-  let filteredPeople;
-  
-  switch(userSearchChoice) {
-    case "height":
-      filteredPeople = searchByHeight(people);
-      break;
-    case "weight":
-      filteredPeople = searchByWeight(people);
-      break; 
-    case "eye color":
-      filteredPeople = searchByEyeColor(people);
-      break;
-    case "gender":
-      filteredPeople = searchByGender(people);
-      break;
-    case "age":
-      filteredPeople = searchByAge(people);
-      break;
-    case "occupation":
-      filteredPeople = searchByOccupation(people);
-      break;
-    default:
-      alert("You entered an invalid search type! Please try again.");
-      searchByTraits(people);
-      break;
-  }  
+    
+    switch(userSearchChoice) {
+      case "height":
+        filteredPeople = searchByHeight(people);
+        break;
+      case "weight":
+        filteredPeople = searchByWeight(people);
+        break; 
+      case "eye color":
+        filteredPeople = searchByEyeColor(people);
+        break;
+      case "gender":
+        filteredPeople = searchByGender(people);
+        break;
+      case "age":
+        filteredPeople = searchByAge(people);
+        break;
+      case "occupation":
+        filteredPeople = searchByOccupation(people);
+        break;
+      default:
+        alert("You entered an invalid search type! Please try again.");
+        searchByTraits(people);
+        break;
+      }
+      let moreCriteriaPrompt = promptFor("Do you want to include more search criteria?",yesNo);
+      if (moreCriteriaPrompt === "yes"){
+        filteredPeople = executeSearch(filteredPeople);
+      }
+      return filteredPeople;
+}
+
+function searchByTraits(people) {
+  let moreCriteria = true;
+  let filteredPeople = executeSearch(people);
 
   let arrayIndexCounter = 0;
   let searchResultArray = filteredPeople.map(function(el){
