@@ -223,14 +223,27 @@ function displayPerson(person){
 
 function descendentInfo(person, people){
 	let descendantsArray = [];
-	let peopleArray = [];
-	let personInfo = [];
-	personInfo = Object.values(person);
+	let parentsArray = [];
+	let personInfo = Object.values(person);
 
-	let personID = personInfo(0);
+	let personID = personInfo[0];
+	peopleArray = people;
+
 	console.log(personID);
-}
+	console.log(peopleArray);
 
+	descendantsArray = peopleArray.filter(function(el){
+			for(let i = 0; i < el.parents.length; i++){
+				if(personID === el.parents[i]){
+					return true;
+				}
+			}	
+		}
+	)
+	console.log(descendantsArray.name.join(","));
+	
+}
+	
 function familyInfo(person, people){
   let familyPersonName;
   let personPropertyKeys = Object.keys(person); //Get the persons object keys/names.
