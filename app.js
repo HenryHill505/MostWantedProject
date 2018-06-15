@@ -267,30 +267,30 @@ function familyInfo(person, people){
   console.log(personParents);
   console.log(personSpouse);
 
-
-  if(personParents !== ""){ //If the persons parents isn't empty.
+  //Code for parents and siblings
+  if(personParents.length >= 1){ //If the persons parents isn't empty.
    for(i = 0; i < personParents.length; i++){ //Loops through the parents array, number of times depends on length of the size of the array.
     for(let j = 0; j < people.length; j++){ //Loop through the whole database of people.
       if(personParents[i] === people[j].id){ //Compares persons parent id/ids to the ids in the database and if true...
       	familyPersonName = people[j].firstName + " " + people[j].lastName; //Combine the first name and last name
-        siblings=descendentInfo(people[j], people, false);
-        siblingNames.push(siblings.map(function(el){return el.firstName+" "+el.lastName}))
+        siblings = descendentInfo(people[j], people, false);
+        siblingNames.push(siblings.map(function(el){return el.firstName + " " + el.lastName}))
       	console.log("familyPersonName", familyPersonName);
-        console.log("Siblings: "+siblingNames)
+        console.log("Siblings: " + siblingNames)
       	currentFamilySet.push(familyPersonName); //Insert into the next available spot in the array
       }
       console.log(currentFamilySet);
 	  }
     }
+    alert(siblingNames)
   }
 
-  alert(siblingNames)
-
-if(personSpouse !== null){ //If the persons parents isn't empty.
+//Code for spouse
+if(personSpouse !== null){ //If the persons spouse isn't empty.
     for(let j = 0; j < people.length; j++){ //Loop through the whole database of people.
       if(personSpouse === people[j].id){ //Compares the spouses id to the ids in the database and if true...
       	familyPersonName = people[j].firstName + " " + people[j].lastName; //Combine the first name and last name.
-      	currentFamilySet.push(familyPersonName); //Insert into the next available spot in the array.
+      	currentFamilySet.push(familyPersonName); //Insert into the next available spot in the provided array.
       }
       console.log(currentFamilySet);
 	  }
