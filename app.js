@@ -23,14 +23,14 @@ function app(people){
 
 function executeSearch(people){
   let userSearchChoice = prompt("What would you like to search by? 'height', 'weight', 'eye color', 'gender', 'age', 'occupation'.");
-    
+
     switch(userSearchChoice) {
       case "height":
         filteredPeople = searchByHeight(people);
         break;
       case "weight":
         filteredPeople = searchByWeight(people);
-        break; 
+        break;
       case "eye color":
         filteredPeople = searchByEyeColor(people);
         break;
@@ -72,7 +72,7 @@ function searchByTraits(people) {
 }
 
 function searchByAge(people){
-  let userInputAge = prompt("What is this person's age?");
+  let userInputAge = promptFor("What is this person's age?",);
 
   let newArray = people.filter(function (el) {
     if(calculateAgeFromBirthDate(el.dob)===Number(userInputAge)){
@@ -225,6 +225,12 @@ function yesNo(input){
   return input.toLowerCase() == "yes" || input.toLowerCase() == "no";
 }
 
+function isNumeric(input){
+  input = Number(input);
+  alert(Number.isInteger(input));
+  return Number.isInteger(input);
+}
+
 // helper function to pass in as default promptFor validation
 function chars(input){
   return true; // default validation only
@@ -242,4 +248,3 @@ function calculateAgeFromBirthDate(birthDateString){
   }
   return age;
 }
-  
