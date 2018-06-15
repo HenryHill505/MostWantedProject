@@ -21,9 +21,9 @@ function app(people){
   }
 }
 
-function executeSearch(people){
+function executeSearch(people, criteriaCounter){
   let userSearchChoice = prompt("What would you like to search by? 'height', 'weight', 'eye color', 'gender', 'age', 'occupation'.");
-
+  criteriaCounter++;
     switch(userSearchChoice) {
       case "height":
         filteredPeople = searchByHeight(people);
@@ -48,16 +48,19 @@ function executeSearch(people){
         searchByTraits(people);
         break;
       }
-      let moreCriteriaPrompt = promptFor("Do you want to include more search criteria?",yesNo);
-      if (moreCriteriaPrompt === "yes"){
-        filteredPeople = executeSearch(filteredPeople);
+
+      if (criteriaCounter<5){
+        let moreCriteriaPrompt = promptFor("Do you want to include more search criteria?",yesNo);
+        if (moreCriteriaPrompt === "yes"){
+          filteredPeople = executeSearch(filteredPeople,criteriaCounter);
+        }
       }
       return filteredPeople;
 }
 
 function searchByTraits(people) {
   let moreCriteria = true;
-  let filteredPeople = executeSearch(people);
+  let filteredPeople = executeSearch(people, 0);
 
   if(filteredPeople.length === 0){
     alert("No results found");
