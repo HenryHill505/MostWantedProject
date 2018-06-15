@@ -252,6 +252,9 @@ function descendentInfo(person, people, getGrandChildren){
 
 function familyInfo(person, people){
   let familyPersonName;
+  let parents = [];
+  let siblings = [];
+  let siblingNames = [];
   let personPropertyKeys = Object.keys(person); //Get the persons object keys/names.
   let personPropertyValues = Object.values(person); //Get the perons objects values.
 
@@ -270,13 +273,18 @@ function familyInfo(person, people){
     for(let j = 0; j < people.length; j++){ //Loop through the whole database of people.
       if(personParents[i] === people[j].id){ //Compares persons parent id/ids to the ids in the database and if true...
       	familyPersonName = people[j].firstName + " " + people[j].lastName; //Combine the first name and last name
+        siblings=descendentInfo(people[j], people, false);
+        siblingNames.push(siblings.map(function(el){return el.firstName+" "+el.lastName}))
       	console.log("familyPersonName", familyPersonName);
+        console.log("Siblings: "+siblingNames)
       	currentFamilySet.push(familyPersonName); //Insert into the next available spot in the array
       }
       console.log(currentFamilySet);
 	  }
     }
   }
+
+  alert(siblingNames)
 
 if(personSpouse !== null){ //If the persons parents isn't empty.
     for(let j = 0; j < people.length; j++){ //Loop through the whole database of people.
