@@ -251,10 +251,10 @@ function descendentInfo(person, people, getGrandChildren){
 }
 
 function familyInfo(person, people){
-  let familyPersonName;
-  let parents = [];
+  let parentSet = [];
+  let spouseSet = [];
   let siblings = [];
-  let siblingNames = [];
+  let siblingSet = [];
   let personPropertyKeys = Object.keys(person); //Get the persons object keys/names.
   let personPropertyValues = Object.values(person); //Get the perons objects values.
 
@@ -272,33 +272,45 @@ function familyInfo(person, people){
    for(i = 0; i < personParents.length; i++){ //Loops through the parents array, number of times depends on length of the size of the array.
     for(let j = 0; j < people.length; j++){ //Loop through the whole database of people.
       if(personParents[i] === people[j].id){ //Compares persons parent id/ids to the ids in the database and if true...
-      	familyPersonName = people[j].firstName + " " + people[j].lastName; //Combine the first name and last name
+      	let parentName = people[j].firstName + " " + people[j].lastName; //Combine the first name and last name
         siblings = descendentInfo(people[j], people, false);
-        siblingNames.push(siblings.map(function(el){return el.firstName + " " + el.lastName}))
-      	console.log("familyPersonName", familyPersonName);
-        console.log("Siblings: " + siblingNames)
-      	currentFamilySet.push(familyPersonName); //Insert into the next available spot in the array
+        siblingSet.push(siblings.map(function(el){
+          console.log(siblingSet.indexOf(el.firstName + " " + el.lastName));
+          if(siblingSet.indexOf(el.firstName + " " + el.lastName)===-1){
+            return el.firstName + " " + el.lastName;
+          }
+        }
+      )
+    )
+    if(siblingSet[0]===siblingSet[1]){
+      siblingSet.splice(0,1);
+    }
+
+        console.log("Siblings: " + siblingSet)
+      	parentSet.push(parentName); //Insert into the next available spot in the array
       }
       console.log(currentFamilySet);
 	  }
     }
-    alert(siblingNames)
+    alert(siblingSet)
   }
 
   let childArray = descendentInfo(person, people, false);
-  childArrayString = childArray.map(function(el){return el.firstName+" "+el.lastName;})
-  alert(childArrayString);
+  let childSet = childArray.map(function(el){return el.firstName+" "+el.lastName;})
+
 
 //Code for spouse
 if(personSpouse !== null){ //If the persons spouse isn't empty.
     for(let j = 0; j < people.length; j++){ //Loop through the whole database of people.
       if(personSpouse === people[j].id){ //Compares the spouses id to the ids in the database and if true...
-      	familyPersonName = people[j].firstName + " " + people[j].lastName; //Combine the first name and last name.
-      	currentFamilySet.push(familyPersonName); //Insert into the next available spot in the provided array.
+      	let spouseName = people[j].firstName + " " + people[j].lastName; //Combine the first name and last name.
+      	spouseSet.push(spouseName); //Insert into the next available spot in the provided array.
       }
       console.log(currentFamilySet);
 	  }
   }
+
+  displayString = "Parents: "+ parentSet.join(", ")+"\n"+"Siblings: "+siblingSet.join(", ")+"\nSpouse: "+spouseSet[0]+"\nChildren: "+childSet.join(", ");
 
   for(i = 0; i < currentFamilySet.length; i++){
   	displayString += currentFamilySet[i] + "\n";
