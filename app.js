@@ -222,7 +222,7 @@ function displayPerson(person){
 }
 
 function descendentInfo(person, people){
-	let descendantsArray = [];
+	
 	let parentsArray = [];
 	let personInfo = Object.values(person);
 
@@ -232,15 +232,19 @@ function descendentInfo(person, people){
 	console.log(personID);
 	console.log(peopleArray);
 
-	descendantsArray = peopleArray.filter(function(el){
+	let descendantsArray = peopleArray.filter(function(el){
 			for(let i = 0; i < el.parents.length; i++){
 				if(personID === el.parents[i]){
 					return true;
 				}
-			}	
+			}
+      for(j = 0; j < descendantsArray.length; j++){
+        descendentInfo(descendantsArray[j], people);
+      }
+      	
 		}
 	)
-	console.log(descendantsArray.name.join(","));
+	console.log(descendantsArray);
 	
 }
 	
