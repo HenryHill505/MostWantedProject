@@ -45,7 +45,8 @@ function executeSearch(people, criteriaCounter){
         break;
       default:
         alert("You entered an invalid search type! Please try again.");
-        searchByTraits(people);
+        //pass in criteriaCounter = 5 so we don't start recursivley stacking "Include more criteria?" prompts.
+        executeSearch(people,5);
         break;
       }
 
