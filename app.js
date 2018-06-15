@@ -285,6 +285,10 @@ function familyInfo(person, people){
     alert(siblingNames)
   }
 
+  let childArray = descendentInfo(person, people, false);
+  childArrayString = childArray.map(function(el){return el.firstName+" "+el.lastName;})
+  alert(childArrayString);
+
 //Code for spouse
 if(personSpouse !== null){ //If the persons spouse isn't empty.
     for(let j = 0; j < people.length; j++){ //Loop through the whole database of people.
