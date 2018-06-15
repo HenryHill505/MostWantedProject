@@ -176,7 +176,7 @@ function mainMenu(person, people){
       familyInfo(person, people);
     break;
     case "descendants":
-      let descendantString = descendentInfo(person, people);
+      let descendantString = descendentInfo(person, people,true);
       descendantString = descendantString.map(function(el){
         return el.firstName+" "+el.lastName;
       })
@@ -225,7 +225,7 @@ function displayPerson(person){
   alert(displayString);
 }
 
-function descendentInfo(person, people){
+function descendentInfo(person, people, getGrandChildren){
 
 	let parentsArray = [];
 	let personInfo = Object.values(person);
@@ -241,9 +241,11 @@ function descendentInfo(person, people){
 			}
     });
 
+    if (getGrandChildren){
        for(let j = 0; j < descendantsArray.length; j++){
-         descendantsArray.push.apply(descendantsArray, descendentInfo(descendantsArray[j], people));
+         descendantsArray.push.apply(descendantsArray, descendentInfo(descendantsArray[j], people, true));
        }
+    }
     return descendantsArray;
 
 }
