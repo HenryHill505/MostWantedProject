@@ -73,9 +73,11 @@ function searchByTraits(people) {
     })
 
     let searchResultString = searchResultArray.join("\n");
-    let selectedPerson = prompt("The following people matched the search criteria:\n"+searchResultString);
-
-    mainMenu(filteredPeople[selectedPerson-1], people);
+    let selectedPersonNumber;
+    do {
+      selectedPersonNumber = Number(prompt("The following people matched the search criteria. Select a person by number:\n"+searchResultString+"\n"));
+    } while(!Number.isInteger(selectedPersonNumber)||selectedPersonNumber>searchResultArray.length||selectedPersonNumber<=0)
+    mainMenu(filteredPeople[selectedPersonNumber-1], people);
   }
 }
 
