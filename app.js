@@ -6,7 +6,7 @@ app(data);
 
 // app is the function called to start the entire application
 function app(people){
-  let searchType = promptFor("Do you know the name of the person you are looking for? Enter 'yes' or 'no'", yesNo).toLowerCase();
+  let searchType = promptFor("Do you know the name of the person you are looking for? Enter 'yes' or 'no'", yesNo);
   switch(searchType){
     case 'yes':
       searchByName(people);
@@ -165,7 +165,7 @@ function mainMenu(person, people){
     return app(people); // restart
   }
 
-  let displayOption = prompt("Found " + person.firstName + " " + person.lastName + " . Do you want to know their 'info', 'family', or 'descendants'? Type the option you want or 'restart' or 'quit'");
+  let displayOption = prompt("Found " + person.firstName + " " + person.lastName + " . Do you want to know their 'info', 'family', or 'descendants'? Type the option you want or 'restart' or 'quit'").toLowerCase();
 
 
   switch(displayOption){
@@ -226,9 +226,9 @@ function displayPerson(person){
 function promptFor(question, valid){
   let response;
   do{
-    response = prompt(question).trim().toLowerCase();
+    response = prompt(question).trim();
   }while(!response || !valid(response));
-  return response;
+  return response.toLowerCase();
 }
 
 // helper function to pass into promptFor to validate yes/no answers
