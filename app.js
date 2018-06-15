@@ -89,7 +89,7 @@ function searchByAge(people){
     if(calculateAgeFromBirthDate(el.dob)===Number(userInputAge)){
       return true;
     }
-    // return true if current date - el.dob matches userInputEyeColor
+    // return true if current date - el.dob matches userInputAge
   });
   return newArray;
 }
