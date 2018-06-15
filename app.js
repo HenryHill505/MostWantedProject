@@ -59,16 +59,21 @@ function searchByTraits(people) {
   let moreCriteria = true;
   let filteredPeople = executeSearch(people);
 
-  let arrayIndexCounter = 0;
-  let searchResultArray = filteredPeople.map(function(el){
-    arrayIndexCounter++;
-    return arrayIndexCounter+". "+el.lastName+", "+el.firstName;
-  })
+  if(filteredPeople.length === 0){
+    alert("No results found");
+  } else {
 
-  let searchResultString = searchResultArray.join("\n");
-  let selectedPerson = prompt("The following people matched the search criteria:\n"+searchResultString);
+    let arrayIndexCounter = 0;
+    let searchResultArray = filteredPeople.map(function(el){
+      arrayIndexCounter++;
+      return arrayIndexCounter+". "+el.lastName+", "+el.firstName;
+    })
 
-  mainMenu(filteredPeople[selectedPerson-1], people);
+    let searchResultString = searchResultArray.join("\n");
+    let selectedPerson = prompt("The following people matched the search criteria:\n"+searchResultString);
+
+    mainMenu(filteredPeople[selectedPerson-1], people);
+  }
 }
 
 function searchByAge(people){
