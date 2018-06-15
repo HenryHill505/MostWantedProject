@@ -176,7 +176,11 @@ function mainMenu(person, people){
       familyInfo(person, people);
     break;
     case "descendants":
-      descendentInfo(person, people);
+      let descendantString = descendentInfo(person, people);
+      descendantString = descendantString.map(function(el){
+        return el.firstName+" "+el.lastName;
+      })
+      	alert(person.firstName+" "+person.lastName+"'s descendants are:\n"+ descendantString.join("\n"));
     case "restart":
       app(people); // restart
     break;
@@ -229,9 +233,6 @@ function descendentInfo(person, people){
 	let personID = personInfo[0];
 	peopleArray = people;
 
-	console.log(personID);
-	console.log(peopleArray);
-
 	let descendantsArray = peopleArray.filter(function(el){
 			for(let i = 0; i < el.parents.length; i++){
 				if(personID === el.parents[i]){
@@ -239,10 +240,11 @@ function descendentInfo(person, people){
 				}
 			}
     });
-      // for(j = 0; j < descendantsArray.length; j++){
-      //   descendentInfo(descendantsArray[j], people);
-      // }
-	console.log(descendantsArray);
+
+       for(let j = 0; j < descendantsArray.length; j++){
+         descendantsArray.push.apply(descendantsArray, descendentInfo(descendantsArray[j], people));
+       }
+    return descendantsArray;
 
 }
 
