@@ -256,19 +256,17 @@ function familyInfo(person, people){
       }
       console.log(currentFamilySet);
 	  }
-    }    
+    }
   }
-  
+
 if(personSpouse !== null){ //If the persons parents isn't empty.
-   for(i = 0; i < personSpouse.length; i++){ //Loops through the parents array, number of times depends on length of the size of the array.
     for(let j = 0; j < people.length; j++){ //Loop through the whole database of people.
-      if(personSpouse[i] === people[j].id){ //Compares the spouses id to the ids in the database and if true...
+      if(personSpouse === people[j].id){ //Compares the spouses id to the ids in the database and if true...
       	familyPersonName = people[j].firstName + " " + people[j].lastName; //Combine the first name and last name.
       	currentFamilySet.push(familyPersonName); //Insert into the next available spot in the array.
       }
       console.log(currentFamilySet);
 	  }
-    }    
   }
 
   for(i = 0; i < currentFamilySet.length; i++){
@@ -276,7 +274,7 @@ if(personSpouse !== null){ //If the persons parents isn't empty.
   }
   alert(displayString);
 }
-  
+
 
 // function that prompts and validates user input, and change all input toLowerCase
 function promptFor(question, valid){
