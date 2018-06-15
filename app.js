@@ -76,11 +76,10 @@ function mainMenu(person, people){
       displayPerson(person);
     break;
     case "family":
-    // TODO: get person's family
+      familyInfo(person, people);
     break;
     case "descendants":
-    // TODO: get person's descendants
-    break;
+      descendentInfo(person, people);
     case "restart":
       app(people); // restart
     break;
@@ -124,6 +123,63 @@ function displayPerson(person){
   }
   alert(displayString);
 }
+
+function descendentInfo(person, people){
+	let descendantsArray = [];
+	let peopleArray = [];
+	let personInfo = [];
+	personInfo = Object.values(person);
+
+	let personID = personInfo(0);
+	console.log(personID);
+}
+
+function familyInfo(person, people){
+  let familyPersonName;
+  let personPropertyKeys = Object.keys(person); //Get the persons object keys/names.
+  let personPropertyValues = Object.values(person); //Get the perons objects values.
+
+  let currentFamilySet = [];
+  let displayString = "";
+  let personParents = personPropertyValues[9]; //Find and sets the persons parents to a variable.
+  let personSpouse = personPropertyValues[10]; //Find and set the persons spous to a variable.
+
+
+  console.log(personParents);
+  console.log(personSpouse);
+
+
+  if(personParents !== ""){ //If the persons parents isn't empty.
+   for(i = 0; i < personParents.length; i++){ //Loops through the parents array, number of times depends on length of the size of the array.
+    for(let j = 0; j < people.length; j++){ //Loop through the whole database of people.
+      if(personParents[i] === people[j].id){ //Compares persons parent id/ids to the ids in the database and if true...
+      	familyPersonName = people[j].firstName + " " + people[j].lastName; //Combine the first name and last name
+      	console.log("familyPersonName", familyPersonName);
+      	currentFamilySet.push(familyPersonName); //Insert into the next available spot in the array
+      }
+      console.log(currentFamilySet);
+	  }
+    }    
+  }
+  
+if(personSpouse !== null){ //If the persons parents isn't empty.
+   for(i = 0; i < personSpouse.length; i++){ //Loops through the parents array, number of times depends on length of the size of the array.
+    for(let j = 0; j < people.length; j++){ //Loop through the whole database of people.
+      if(personSpouse[i] === people[j].id){ //Compares the spouses id to the ids in the database and if true...
+      	familyPersonName = people[j].firstName + " " + people[j].lastName; //Combine the first name and last name.
+      	currentFamilySet.push(familyPersonName); //Insert into the next available spot in the array.
+      }
+      console.log(currentFamilySet);
+	  }
+    }    
+  }
+
+  for(i = 0; i < currentFamilySet.length; i++){
+  	displayString += currentFamilySet[i] + "\n";
+  }
+  alert(displayString);
+}
+  
 
 // function that prompts and validates user input, and change all input toLowerCase
 function promptFor(question, valid){
