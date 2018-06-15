@@ -72,7 +72,7 @@ function searchByTraits(people) {
 }
 
 function searchByAge(people){
-  let userInputAge = promptFor("What is this person's age?",);
+  let userInputAge = Number(promptFor("What is this person's age?",isNumeric));
 
   let newArray = people.filter(function (el) {
     if(calculateAgeFromBirthDate(el.dob)===Number(userInputAge)){
@@ -108,7 +108,7 @@ function searchByGender(people){
 }
 
 function searchByHeight(people) {
-  let userInputHeight = prompt("How tall is the person?");
+  let userInputHeight = Number(promptFor("How tall is the person?",isNumeric));
 
   let newArray = people.filter(function (el) {
     if(el.height === userInputHeight) {
@@ -132,7 +132,7 @@ function searchByOccupation(people){
 }
 
 function searchByWeight(people) {
-  let userInputWeight = prompt("How much does the person weigh?");
+  let userInputWeight = Number(promptFor("How much does the person weigh?",isNumeric));
 
   let newArray = people.filter(function (el) {
     if(el.weight === userInputWeight) {
@@ -227,7 +227,6 @@ function yesNo(input){
 
 function isNumeric(input){
   input = Number(input);
-  alert(Number.isInteger(input));
   return Number.isInteger(input);
 }
 
