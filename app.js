@@ -187,7 +187,7 @@ function mainMenu(person, people){
 			} else {
 				alert("This person does not have any descendants.")
 			}
-
+			break;
 		case "restart":
 			app(people); //Restart
 			break;
@@ -208,9 +208,13 @@ function searchByName(people){
 		if(people[i].firstName.toLowerCase() === firstName && people[i].lastName.toLowerCase() === lastName){
 			let selectedPerson = people[i];
 			mainMenu(selectedPerson,people);
-			break;
+		}
+		if(people[i].firstName.toLowerCase() !== firstName && people[i].lastName.toLowerCase() !== lastName){
+			alert("We could find the person you were looking for.");
+			searchByName(people);
 		}
 	}
+	
 }
 
 // alerts a list of people
@@ -291,14 +295,14 @@ function familyInfo(person, people){
 		}
 	}
   for (let i=0;i<siblingSet.length;i++){
-    if (siblingSet[i].indexOf(person.firstName+" "+person.lastName)!==-1){
-      let indexOfStart = siblingSet[i].indexOf(person.firstName+" "+person.lastName);
-      let indexOfEnd = indexOfStart+person.firstName.length+person.lastName.length+1;
+    if (siblingSet[i].indexOf(person.firstName + " " + person.lastName)!==-1){
+      let indexOfStart = siblingSet[i].indexOf(person.firstName + " " + person.lastName);
+      let indexOfEnd = indexOfStart + person.firstName.length + person.lastName.length + 1;
       let forwardString = siblingSet[i].slice(0,indexOfStart);
-      let rearString = siblingSet[i].slice(indexOfEnd+2,siblingSet[i].length);
-      siblingSet[i] = forwardString+rearString;
+      let rearString = siblingSet[i].slice(indexOfEnd + 2,siblingSet[i].length);
+      siblingSet[i] = forwardString + rearString;
       if (siblingSet[i].slice(siblingSet[i].length-1) === " "){
-        siblingSet[i] = siblingSet[i].slice(0,siblingSet[i].length-2);
+        siblingSet[i] = siblingSet[i].slice(0,siblingSet[i].length - 2);
       }
     }
   }
@@ -331,9 +335,9 @@ function familyInfo(person, people){
 	}else if(personSpouse === null){
 		spouseSet.push("No spouse found");
 	}
-
+	console.log(siblingSet);
 	if(siblingSet < 1){
-		siblingSet.push("No siblings found");
+		siblingSet.unshift("No siblings found");
 	}
 
 	if(parentSet < 1){
@@ -346,6 +350,7 @@ function familyInfo(person, people){
 
 	//Display the message
 	displayString = "Parents: " + parentSet.join(", ") + "\nSiblings: " + siblingSet[0] + "\nSpouse: " + spouseSet[0] + "\nChildren: " + childSet.join(", ");
+	console.log(siblingSet);
 
 	for(i = 0; i < currentFamilySet.length; i++){
 		displayString += currentFamilySet[i] + "\n";
