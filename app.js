@@ -55,7 +55,7 @@ function executeSearch(people, criteriaCounter){
 
 	//Asks the user if they would like to include more traits for their search
 	if (criteriaCounter < 5){
-		let moreCriteriaPrompt = promptFor("Do you want to include more search criteria?",yesNo);
+		let moreCriteriaPrompt = promptFor("Do you want to include more search criteria? Answer 'Yes' or 'No'",yesNo);
 		if (moreCriteriaPrompt === "yes"){
 			filteredPeople = executeSearch(filteredPeople,criteriaCounter);
 		}
@@ -88,7 +88,7 @@ function searchByTraits(people) {
 
 //Search by age function
 function searchByAge(people){
-	let userInputAge = Number(promptFor("What is this person's age?",isNumeric));
+	let userInputAge = Number(promptFor("Enter this person's age as a number",isNumeric));
 	let newArray = people.filter(function (el){
 		if(calculateAgeFromBirthDate(el.dob)===Number(userInputAge)){
 			return true;
@@ -99,7 +99,7 @@ function searchByAge(people){
 }
 
 function searchByEyeColor(people){
-	let userInputEyeColor = prompt("What is this person's eye color?");
+	let userInputEyeColor = prompt("Enter this person's eye color.");
 	let newArray = people.filter(function(el){
 		if(el.eyeColor === userInputEyeColor){
 			return true;
@@ -110,7 +110,7 @@ function searchByEyeColor(people){
 }
 
 function searchByGender(people){
-	let userInputGender = promptFor("What is this person's gender?",isGender);
+	let userInputGender = promptFor("Enter this person's gender as 'male' or 'female'",isGender);
 	let newArray = people.filter(function(el){
 		if(el.gender === userInputGender){
 			return true;
@@ -121,7 +121,7 @@ function searchByGender(people){
 }
 
 function searchByHeight(people){
-	let userInputHeight = Number(promptFor("How tall is the person?",isNumeric));
+	let userInputHeight = Number(promptFor("Enter this person's height as a number.",isNumeric));
 	let newArray = people.filter(function(el){
 		if(el.height === userInputHeight){
 			return true;
@@ -132,7 +132,7 @@ function searchByHeight(people){
 }
 
 function searchByOccupation(people){
-	let userInputOccupation = prompt("What is this person's occupation?");
+	let userInputOccupation = prompt("Enter this person's occupation.");
 	let newArray = people.filter(function(el){
 		if(el.occupation === userInputOccupation){
 			return true;
@@ -143,7 +143,7 @@ function searchByOccupation(people){
 }
 
 function searchByWeight(people){
-	let userInputWeight = Number(promptFor("How much does the person weigh?",isNumeric));
+	let userInputWeight = Number(promptFor("Enter this person's weight as a number.",isNumeric));
 	let newArray = people.filter(function(el){
 		if(el.weight === userInputWeight) {
 			return true;
@@ -181,7 +181,7 @@ function mainMenu(person, people){
 				return el.firstName + " " + el.lastName;
 			});
 
-			if(descendantString.length > 1){
+			if(descendantString.length >= 1){
 				alert(person.firstName + " " + person.lastName + "'s descendants are:\n" + descendantString.join("\n"));
 			} else {
 				alert("This person does not have any descendants.")
@@ -355,9 +355,14 @@ function familyInfo(person, people){
 // function that prompts and validates user input, and change all input toLowerCase
 function promptFor(question, valid){
 	let response;
-	do{
+	response = prompt(question).trim();
+	while (!response || !valid(response)){
+		alert("Invalid input. Please enter data as prompted.")
 		response = prompt(question).trim();
-	}while(!response || !valid(response));
+	}
+	// do{
+	// 	response = prompt(question).trim();
+	// }while(!response || !valid(response));
 		return response.toLowerCase();
 	}
 
