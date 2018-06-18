@@ -205,16 +205,17 @@ function searchByName(people){
 	let firstName = promptFor("What is the person's first name?", chars);
 	let lastName = promptFor("What is the person's last name?", chars);
 	let arrayLength = people.length;
+	let selectedPerson = "";
 
 	//loop through the array until the person is found, then alert the user
 	for(let i = 0; i < arrayLength; i++){
 		if(people[i].firstName.toLowerCase() === firstName && people[i].lastName.toLowerCase() === lastName){
-			let selectedPerson = people[i];
+			selectedPerson = people[i];
 			mainMenu(selectedPerson,people);
 		}
 	}
 
-	if(people[i].firstName.toLowerCase() !== firstName && people[i].lastName.toLowerCase() !== lastName){
+	if(selectedPerson === ""){
 		alert("We couldn't find the person you were looking for.");
 		searchByName(people);
 	}
