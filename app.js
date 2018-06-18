@@ -290,23 +290,13 @@ function familyInfo(person, people){
       let forwardString = siblingSet[0].slice(0,indexOfStart);
       let rearString = siblingSet[0].slice(indexOfEnd+2,siblingSet[0].length);
       siblingSet[0] = forwardString+rearString;
+			//remove trailing punctuation
       if (siblingSet[0].slice(siblingSet[0].length-1) === " "){
         siblingSet[0] = siblingSet[0].slice(0,siblingSet[0].length-2);
       }
     }
 
-	//Checks for matched names
-	for(let i = 0;i < siblingSet.length; i++){
-		if(siblingSet[i].indexOf(person.firstName + " " + person.lastName) !== -1){
-			let indexOfStart = siblingSet[i].indexOf(person.firstName + " " + person.lastName);
-			let indexOfEnd = indexOfStart + person.firstName.length + person.lastName.length;
-			let forwardString = siblingSet[i].slice(0, indexOfStart - 2);
-			let rearString = siblingSet[i].slice(indexOfEnd, siblingSet[i].length);
-			siblingSet[i] = forwardString + rearString;
-		}
-	}
-
-	//Checks for descendants and grandchildren
+	//Checks for children
 	let childArray = descendantInfo(person, people, false);
 	let childSet = childArray.map(function(el){
 		return el.firstName + " " + el.lastName;
