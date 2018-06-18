@@ -263,7 +263,6 @@ function familyInfo(person, people){
 	let siblingSet = [];
 	let personPropertyKeys = Object.keys(person); //Get the persons object keys/names.
 	let personPropertyValues = Object.values(person); //Get the perons objects values.
-	let personSpouse = personPropertyValues[10]; //Find and set the persons spous to a variable.
 
 	//Code for parents and siblings
 	if(person.parents.length >= 1){ //Checks to see if the persons parents isn't empty.
@@ -287,6 +286,7 @@ function familyInfo(person, people){
 			}
 		}
 	}
+	//Remove the subject's name from the list of his siblings
   for (let i=0;i<siblingSet.length;i++){
     if (siblingSet[i].indexOf(person.firstName+" "+person.lastName)!==-1){
       let indexOfStart = siblingSet[i].indexOf(person.firstName+" "+person.lastName);
@@ -318,14 +318,14 @@ function familyInfo(person, people){
 	});
 
 	//Code for spouse
-	if(personSpouse !== null){ //If the persons spouse isn't empty.
+	if(person.currentSpouse !== null){ //If the persons spouse isn't empty.
 		for(let j = 0; j < people.length; j++){ //Loop through the whole database of people.
-			if(personSpouse === people[j].id){ //Compares the spouses id to the ids in the database and if true...
+			if(person.currentSpouse === people[j].id){ //Compares the spouses id to the ids in the database and if true...
 				let spouseName = people[j].firstName + " " + people[j].lastName; //Combine the first name and last name.
 				spouseSet.push(spouseName); //Insert into the next available spot in the provided array.
 			}
 		}
-	}else if(personSpouse === null){
+	}else if(person.currentSpouse === null){
 		spouseSet.push("No spouse found");
 	}
 
