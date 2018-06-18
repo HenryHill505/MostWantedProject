@@ -268,39 +268,36 @@ function familyInfo(person, people){
 			for(let j = 0; j < people.length; j++){ //Loop through the whole database of people.
 				if(person.parents[i] === people[j].id){ //Compares persons parent id/ids to the ids in the database and if true...
 					let parentName = people[j].firstName + " " + people[j].lastName; //Combine the first name and last name
+					parentSet.push(parentName); //Insert into the next available spot in the array
+					//Code for siblings
 					siblings = descendantInfo(people[j], people, false);
 					siblings = (siblings.map(function(el){
 						return el.firstName + " " + el.lastName;
         			}))
 					siblingSet.push(siblings.join(", "));
-
-					//Code for siblings
-					if(siblingSet[0] === siblingSet[1]){
-						siblingSet.splice(0,1);
-					}
-					console.log("Siblings: " + siblingSet)
-					parentSet.push(parentName); //Insert into the next available spot in the array
 				}
 			}
 		}
 	}
+//Remove duplicate string from array
+	if(siblingSet[0] === siblingSet[1]){
+		siblingSet.splice(0,1);
+	}
 	//Remove the subject's name from the list of his siblings
-  for (let i=0;i<siblingSet.length;i++){
-    if (siblingSet[i].indexOf(person.firstName+" "+person.lastName)!==-1){
-      let indexOfStart = siblingSet[i].indexOf(person.firstName+" "+person.lastName);
+    if (siblingSet[0].indexOf(person.firstName+" "+person.lastName)!==-1){
+      let indexOfStart = siblingSet[0].indexOf(person.firstName+" "+person.lastName);
       let indexOfEnd = indexOfStart+person.firstName.length+person.lastName.length+1;
-      let forwardString = siblingSet[i].slice(0,indexOfStart);
-      let rearString = siblingSet[i].slice(indexOfEnd+2,siblingSet[i].length);
-      siblingSet[i] = forwardString+rearString;
-      if (siblingSet[i].slice(siblingSet[i].length-1) === " "){
-        siblingSet[i] = siblingSet[i].slice(0,siblingSet[i].length-2);
+      let forwardString = siblingSet[0].slice(0,indexOfStart);
+      let rearString = siblingSet[0].slice(indexOfEnd+2,siblingSet[0].length);
+      siblingSet[0] = forwardString+rearString;
+      if (siblingSet[0].slice(siblingSet[0].length-1) === " "){
+        siblingSet[0] = siblingSet[0].slice(0,siblingSet[0].length-2);
       }
     }
-  }
+
 	//Checks for matched names
 	for(let i = 0;i < siblingSet.length; i++){
 		if(siblingSet[i].indexOf(person.firstName + " " + person.lastName) !== -1){
-			console.log("MATCHED NAME")
 			let indexOfStart = siblingSet[i].indexOf(person.firstName + " " + person.lastName);
 			let indexOfEnd = indexOfStart + person.firstName.length + person.lastName.length;
 			let forwardString = siblingSet[i].slice(0, indexOfStart - 2);
