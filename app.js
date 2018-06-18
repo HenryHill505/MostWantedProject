@@ -176,7 +176,7 @@ function mainMenu(person, people){
 			familyInfo(person, people);
 			break;
 		case "descendants":
-			let descendantString = descendentInfo(person, people,true);
+			let descendantString = descendantInfo(person, people,true);
 
 			descendantString = descendantString.map(function(el){
 				return el.firstName + " " + el.lastName;
@@ -234,7 +234,7 @@ function displayPerson(person){
 }
 
 //Get and display the descendant info, including children and grandchildren
-function descendentInfo(person, people, getAllDescendants){
+function descendantInfo(person, people, getAllDescendants){
 
 	let descendantsArray = people.filter(function(el){
 		for(let i = 0; i < el.parents.length; i++){
@@ -246,7 +246,7 @@ function descendentInfo(person, people, getAllDescendants){
 	//If trying to find all descendants, call descendantInfo recursively on the previous round of descendants
 	if (getAllDescendants){
 		for(let j = 0; j < descendantsArray.length; j++){
-			descendantsArray.push.apply(descendantsArray, descendentInfo(descendantsArray[j], people, true));
+			descendantsArray.push.apply(descendantsArray, descendantInfo(descendantsArray[j], people, true));
 		}
   }
     return descendantsArray;
@@ -271,7 +271,7 @@ function familyInfo(person, people){
 			for(let j = 0; j < people.length; j++){ //Loop through the whole database of people.
 				if(personParents[i] === people[j].id){ //Compares persons parent id/ids to the ids in the database and if true...
 					let parentName = people[j].firstName + " " + people[j].lastName; //Combine the first name and last name
-					siblings = descendentInfo(people[j], people, false);
+					siblings = descendantInfo(people[j], people, false);
 					siblings = (siblings.map(function(el){
 						return el.firstName + " " + el.lastName;
         			}))
@@ -312,7 +312,7 @@ function familyInfo(person, people){
 	}
 
 	//Checks for descendants and grandchildren
-	let childArray = descendentInfo(person, people, false);
+	let childArray = descendantInfo(person, people, false);
 	let childSet = childArray.map(function(el){
 		return el.firstName + " " + el.lastName;
 	});
