@@ -261,8 +261,6 @@ function familyInfo(person, people){
 	let spouseSet = [];
 	let siblings = [];
 	let siblingSet = [];
-	let personPropertyKeys = Object.keys(person); //Get the persons object keys/names.
-	let personPropertyValues = Object.values(person); //Get the perons objects values.
 
 	//Code for parents and siblings
 	if(person.parents.length >= 1){ //Checks to see if the persons parents isn't empty.
