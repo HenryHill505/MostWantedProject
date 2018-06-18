@@ -51,8 +51,7 @@ function executeSearch(people, criteriaCounter){
 			break;
 		default:
 			alert("You entered an invalid search type! Please try again.");
-			//pass in criteriaCounter = 5 so we don't start recursivley stacking "Include more criteria?" prompts.
-			filteredPeople = executeSearch(people,5);
+			filteredPeople = executeSearch(people,5); //pass in criteriaCounter = 5 so we don't start recursivley stacking "Include more criteria?" prompts.
 			break;
 	}
 
@@ -262,7 +261,6 @@ function familyInfo(person, people){
 	let spouseSet = [];
 	let siblings = [];
 	let siblingSet = [];
-	let currentFamilySet = [];
 	let personPropertyKeys = Object.keys(person); //Get the persons object keys/names.
 	let personPropertyValues = Object.values(person); //Get the perons objects values.
 	let displayString = "";
@@ -271,7 +269,7 @@ function familyInfo(person, people){
 
 	//Code for parents and siblings
 	if(personParents.length >= 1){ //Checks to see if the persons parents isn't empty.
-		for(i = 0; i < personParents.length; i++){ //Loops through the parents array, number of times depends on length of the size of the array.
+		for(let i = 0; i < personParents.length; i++){ //Loops through the parents array, number of times depends on length of the size of the array.
 			for(let j = 0; j < people.length; j++){ //Loop through the whole database of people.
 				if(personParents[i] === people[j].id){ //Compares persons parent id/ids to the ids in the database and if true...
 					let parentName = people[j].firstName + " " + people[j].lastName; //Combine the first name and last name
@@ -348,9 +346,6 @@ function familyInfo(person, people){
 	//Display the message
 	displayString = "Parents: " + parentSet.join(", ") + "\nSiblings: " + siblingSet[0] + "\nSpouse: " + spouseSet[0] + "\nChildren: " + childSet.join(", ");
 
-	for(let i = 0; i < currentFamilySet.length; i++){
-		displayString += currentFamilySet[i] + "\n";
-	}
 	alert(displayString);
 }
 
