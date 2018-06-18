@@ -89,7 +89,7 @@ function searchByTraits(people) {
 
 //Search by age function
 function searchByAge(people){
-	let userInputAge = Number(promptFor("Enter this person's age as a number",isNumeric));
+	let userInputAge = Number(promptFor("Enter this person's age as an integer",isNumeric));
 	let newArray = people.filter(function (el){
 		if(calculateAgeFromBirthDate(el.dob)===Number(userInputAge)){
 			return true;
@@ -122,7 +122,7 @@ function searchByGender(people){
 }
 
 function searchByHeight(people){
-	let userInputHeight = Number(promptFor("Enter this person's height as a number.",isNumeric));
+	let userInputHeight = Number(promptFor("Enter this person's height as an integer.",isNumeric));
 	let newArray = people.filter(function(el){
 		if(el.height === userInputHeight){
 			return true;
@@ -144,7 +144,7 @@ function searchByOccupation(people){
 }
 
 function searchByWeight(people){
-	let userInputWeight = Number(promptFor("Enter this person's weight as a number.",isNumeric));
+	let userInputWeight = Number(promptFor("Enter this person's weight as an integer",isNumeric));
 	let newArray = people.filter(function(el){
 		if(el.weight === userInputWeight) {
 			return true;
@@ -234,24 +234,21 @@ function displayPerson(person){
 }
 
 //Get and display the descendant info, including children and grandchildren
-function descendentInfo(person, people, getGrandChildren){
-	let parentsArray = [];
-	let personInfo = Object.values(person);
-	let personID = personInfo[0];
-	peopleArray = people;
+function descendentInfo(person, people, getAllDescendants){
 
-	let descendantsArray = peopleArray.filter(function(el){
+	let descendantsArray = people.filter(function(el){
 		for(let i = 0; i < el.parents.length; i++){
-			if(personID === el.parents[i]){
+			if(person.id === el.parents[i]){
 				return true;
 			}
 		}
 	});
-	if (getGrandChildren){
+	//If trying to find all descendants, call descendantInfo recursively on the previous round of descendants
+	if (getAllDescendants){
 		for(let j = 0; j < descendantsArray.length; j++){
 			descendantsArray.push.apply(descendantsArray, descendentInfo(descendantsArray[j], people, true));
 		}
-    }
+  }
     return descendantsArray;
 }
 
@@ -361,9 +358,6 @@ function promptFor(question, valid){
 		alert("Invalid input. Please enter data as prompted.")
 		response = prompt(question).trim();
 	}
-	// do{
-	// 	response = prompt(question).trim();
-	// }while(!response || !valid(response));
 		return response.toLowerCase();
 	}
 
