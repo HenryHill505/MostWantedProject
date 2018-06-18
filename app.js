@@ -187,7 +187,7 @@ function mainMenu(person, people){
 			} else {
 				alert("This person does not have any descendants.")
 			}
-			
+
 		case "restart":
 			app(people); //Restart
 			break;
@@ -290,7 +290,18 @@ function familyInfo(person, people){
 			}
 		}
 	}
-
+  for (let i=0;i<siblingSet.length;i++){
+    if (siblingSet[i].indexOf(person.firstName+" "+person.lastName)!==-1){
+      let indexOfStart = siblingSet[i].indexOf(person.firstName+" "+person.lastName);
+      let indexOfEnd = indexOfStart+person.firstName.length+person.lastName.length+1;
+      let forwardString = siblingSet[i].slice(0,indexOfStart);
+      let rearString = siblingSet[i].slice(indexOfEnd+2,siblingSet[i].length);
+      siblingSet[i] = forwardString+rearString;
+      if (siblingSet[i].slice(siblingSet[i].length-1) === " "){
+        siblingSet[i] = siblingSet[i].slice(0,siblingSet[i].length-2);
+      }
+    }
+  }
 	//Checks for matched names
 	for(let i = 0;i < siblingSet.length; i++){
 		if(siblingSet[i].indexOf(person.firstName + " " + person.lastName) !== -1){
@@ -302,7 +313,7 @@ function familyInfo(person, people){
 			siblingSet[i] = forwardString + rearString;
 		}
 	}
-	
+
 	//Checks for descendants and grandchildren
 	let childArray = descendentInfo(person, people, false);
 	let childSet = childArray.map(function(el){
