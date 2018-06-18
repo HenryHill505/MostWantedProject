@@ -79,6 +79,7 @@ function searchByTraits(people) {
 
 		let searchResultString = searchResultArray.join("\n");
 		let selectedPersonNumber;
+
 		do{
 			selectedPersonNumber = Number(prompt("The following people matched the search criteria. Select a person by number:\n"+searchResultString+"\n"));
 		}while(!Number.isInteger(selectedPersonNumber) || selectedPersonNumber > searchResultArray.length || selectedPersonNumber <= 0)
@@ -260,9 +261,9 @@ function familyInfo(person, people){
 	let spouseSet = [];
 	let siblings = [];
 	let siblingSet = [];
+	let currentFamilySet = [];
 	let personPropertyKeys = Object.keys(person); //Get the persons object keys/names.
 	let personPropertyValues = Object.values(person); //Get the perons objects values.
-	let currentFamilySet = [];
 	let displayString = "";
 	let personParents = personPropertyValues[9]; //Find and sets the persons parents to a variable.
 	let personSpouse = personPropertyValues[10]; //Find and set the persons spous to a variable.
@@ -317,11 +318,11 @@ function familyInfo(person, people){
 			}
 		}
 	}else if(personSpouse === null){
-		spouseSet.push("No spouse");
+		spouseSet.push("No spouse found");
 	}
 
 	if(siblingSet < 1){
-		siblingSet.push("No siblings");
+		siblingSet.push("No siblings found");
 	}
 
 	if(parentSet < 1){
@@ -329,7 +330,7 @@ function familyInfo(person, people){
 	}
 
 	if(childSet.length < 1){
-		childSet.push("No children");
+		childSet.push("No children found");
 	}
 
 	//Display the message
@@ -371,6 +372,7 @@ function chars(input){
 	return true; // default validation only
 }
 
+//Age calculator function
 function calculateAgeFromBirthDate(birthDateString){
 	let today = new Date();
 	let birthDate = new Date(birthDateString);
