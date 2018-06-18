@@ -155,14 +155,14 @@ function searchByWeight(people){
 // Menu function to call once you find who you are looking for
 function mainMenu(person, people){
 
-	/* Here we pass in the entire person object that we found in our search, as well as the entire original dataset of people. 
+	/* Here we pass in the entire person object that we found in our search, as well as the entire original dataset of people.
 	We need people in order to find descendants and other information that the user may want. */
 
 	if(!person){
 		alert("Could not find that individual.");
 		return app(people); // restart
 	}
-	let displayOption = prompt("Found " + person.firstName + " " + person.lastName 
+	let displayOption = prompt("Found " + person.firstName + " " + person.lastName
 		+ " . Do you want to know their 'info', 'family', or 'descendants'? Type the option you want or 'restart' or 'quit'").toLowerCase();
 
 	switch(displayOption){
@@ -267,12 +267,10 @@ function familyInfo(person, people){
 				if(personParents[i] === people[j].id){ //Compares persons parent id/ids to the ids in the database and if true...
 					let parentName = people[j].firstName + " " + people[j].lastName; //Combine the first name and last name
 					siblings = descendentInfo(people[j], people, false);
-					siblingSet.push(siblings.map(function(el){
-						console.log(siblingSet.indexOf(el.firstName + " " + el.lastName));
-						if(siblingSet.indexOf(el.firstName + " " + el.lastName)===-1){
+					siblings = (siblings.map(function(el){
 							return el.firstName + " " + el.lastName;
-          				}
         			}))
+              siblingSet.push(siblings.join(", "));
 					//Code for siblings
 					if(siblingSet[0]===siblingSet[1]){
 						siblingSet.splice(0,1);
@@ -284,6 +282,16 @@ function familyInfo(person, people){
 			}
 		}
 	}
+  for (let i=0;i<siblingSet.length;i++){
+    if (siblingSet[i].indexOf(person.firstName+" "+person.lastName)!==-1){
+      console.log("MATCHED NAME")
+      let indexOfStart = siblingSet[i].indexOf(person.firstName+" "+person.lastName);
+      let indexOfEnd = indexOfStart+person.firstName.length+person.lastName.length;
+      let forwardString = siblingSet[i].slice(0,indexOfStart-2);
+      let rearString = siblingSet[i].slice(indexOfEnd,siblingSet[i].length);
+      siblingSet[i] = forwardString+rearString;
+    }
+  }
 
 	let childArray = descendentInfo(person, people, false);
 	let childSet = childArray.map(function(el){
@@ -294,15 +302,7 @@ function familyInfo(person, people){
 		childSet.push("No children");
 	}
 
-	let siblingSetNew = siblingSet[1];
-	console.log(siblingSetNew);
-	siblingSet = siblingSetNew;
 
-	for(let i = 0; i < siblingSetNew.length; i++){
-		if(siblingSetNew.id === person.id){
-			siblingSetNew.splice(i, 0);
-		}
-	}
 
 	//Code for spouse
 	if(personSpouse !== null){ //If the persons spouse isn't empty.
@@ -318,7 +318,7 @@ function familyInfo(person, people){
 	}
 
 	//Display the message.
-	displayString = "Parents: "+ parentSet.join(", ")+"\nSiblings: "+siblingSet.join(", ")+"\nSpouse: "+spouseSet[0]+"\nChildren: "+childSet.join(", ");
+	displayString = "Parents: "+ parentSet.join(", ")+"\nSiblings: "+siblingSet[0]+"\nSpouse: "+spouseSet[0]+"\nChildren: "+childSet.join(", ");
 
 	for(i = 0; i < currentFamilySet.length; i++){
 		displayString += currentFamilySet[i] + "\n";
@@ -345,7 +345,7 @@ function isGender(input){
 	return input === "male" || input === "female";
 }
 
-//Get 
+//Get
 function isNumeric(input){
 	input = Number(input);
 	return Number.isInteger(input);
