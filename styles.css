@@ -8,15 +8,16 @@
 	color: black;
 	display: inline-block;
 	font-size: 16px;
+	background-repeat: no-repeat;
+	background-size: fill;
 }
 #buttonbody{
 	max-width: 25%;
 	margin: auto;
 	padding: 250px;
 	text-align: center;
-	/*
 	background-image: url("database.jpg");
-	*/
 	background-position: center;
-	background-size: cover;
+	background-size: fill;
+	background-repeat: no-repeat;
 }
