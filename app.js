@@ -69,7 +69,8 @@ function searchByTraits(people) {
 	let filteredPeople = executeSearch(people, 0);
 
 	if(filteredPeople.length === 0){
-		alert("No results found");
+		alert("Unable to find anyone matching search criteria.");
+		app(people);
 	}else{
 		let arrayIndexCounter = 0;
 		let searchResultArray = filteredPeople.map(function(el){
@@ -233,7 +234,7 @@ function displayPerson(person){
 	alert(displayString);
 }
 
-//Get and display the descendant info, including children and grandchildren
+//Get and display the descendant info
 function descendantInfo(person, people, getAllDescendants){
 
 	let descendantsArray = people.filter(function(el){
