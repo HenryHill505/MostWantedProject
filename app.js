@@ -263,15 +263,13 @@ function familyInfo(person, people){
 	let siblingSet = [];
 	let personPropertyKeys = Object.keys(person); //Get the persons object keys/names.
 	let personPropertyValues = Object.values(person); //Get the perons objects values.
-	let displayString = "";
-	let personParents = personPropertyValues[9]; //Find and sets the persons parents to a variable.
 	let personSpouse = personPropertyValues[10]; //Find and set the persons spous to a variable.
 
 	//Code for parents and siblings
-	if(personParents.length >= 1){ //Checks to see if the persons parents isn't empty.
-		for(let i = 0; i < personParents.length; i++){ //Loops through the parents array, number of times depends on length of the size of the array.
+	if(person.parents.length >= 1){ //Checks to see if the persons parents isn't empty.
+		for(let i = 0; i < person.parents.length; i++){ //Loops through the parents array, number of times depends on length of the size of the array.
 			for(let j = 0; j < people.length; j++){ //Loop through the whole database of people.
-				if(personParents[i] === people[j].id){ //Compares persons parent id/ids to the ids in the database and if true...
+				if(person.parents[i] === people[j].id){ //Compares persons parent id/ids to the ids in the database and if true...
 					let parentName = people[j].firstName + " " + people[j].lastName; //Combine the first name and last name
 					siblings = descendantInfo(people[j], people, false);
 					siblings = (siblings.map(function(el){
@@ -344,7 +342,7 @@ function familyInfo(person, people){
 	}
 
 	//Display the message
-	displayString = "Parents: " + parentSet.join(", ") + "\nSiblings: " + siblingSet[0] + "\nSpouse: " + spouseSet[0] + "\nChildren: " + childSet.join(", ");
+	let displayString = "Parents: " + parentSet.join(", ") + "\nSiblings: " + siblingSet[0] + "\nSpouse: " + spouseSet[0] + "\nChildren: " + childSet.join(", ");
 
 	alert(displayString);
 }
