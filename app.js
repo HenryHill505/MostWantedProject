@@ -1,3 +1,5 @@
+"use strict";
+
 /*
 Build all of your functions for displaying and gathering information below (GUI).
 */
@@ -25,6 +27,7 @@ function app(people){
 //Main search function
 function executeSearch(people, criteriaCounter){
 	let userSearchChoice = prompt("What would you like to search by? 'height', 'weight', 'eye color', 'gender', 'age', 'occupation'.");
+	let filteredPeople;
 
 	criteriaCounter++;
     switch(userSearchChoice){
@@ -49,11 +52,11 @@ function executeSearch(people, criteriaCounter){
 		default:
 			alert("You entered an invalid search type! Please try again.");
 			//pass in criteriaCounter = 5 so we don't start recursivley stacking "Include more criteria?" prompts.
-			ilteredPeople = executeSearch(people,5);
+			filteredPeople = executeSearch(people,5);
 			break;
 	}
 
-	//Asks the user if they would like to include more traits for their search
+	//Asks the user if they would like to include more traits for their search. 5 traits maximum
 	if (criteriaCounter < 5){
 		let moreCriteriaPrompt = promptFor("Do you want to include more search criteria? Answer 'Yes' or 'No'",yesNo);
 		if (moreCriteriaPrompt === "yes"){
@@ -63,7 +66,7 @@ function executeSearch(people, criteriaCounter){
 	return filteredPeople;
 }
 
-//Search by trait function
+//Search by trait
 function searchByTraits(people) {
 	let moreCriteria = true;
 	let filteredPeople = executeSearch(people, 0);
@@ -205,7 +208,7 @@ function searchByName(people){
 	let arrayLength = people.length;
 
 	//loop through the array until the person is found, then alert the user
-	for(i = 0; i < arrayLength; i++){
+	for(let i = 0; i < arrayLength; i++){
 		if(people[i].firstName.toLowerCase() === firstName && people[i].lastName.toLowerCase() === lastName){
 			let selectedPerson = people[i];
 			mainMenu(selectedPerson,people);
@@ -335,7 +338,7 @@ function familyInfo(person, people){
 	}
 
 	if(parentSet < 1){
-		parentSet.push("No parents listed");
+		parentSet.push("No parents found");
 	}
 
 	if(childSet.length < 1){
@@ -345,7 +348,7 @@ function familyInfo(person, people){
 	//Display the message
 	displayString = "Parents: " + parentSet.join(", ") + "\nSiblings: " + siblingSet[0] + "\nSpouse: " + spouseSet[0] + "\nChildren: " + childSet.join(", ");
 
-	for(i = 0; i < currentFamilySet.length; i++){
+	for(let i = 0; i < currentFamilySet.length; i++){
 		displayString += currentFamilySet[i] + "\n";
 	}
 	alert(displayString);
