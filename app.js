@@ -190,7 +190,7 @@ function mainMenu(person, people){
 			} else {
 				alert("This person does not have any descendants.")
 			}
-
+			break;
 		case "restart":
 			app(people); //Restart
 			break;
@@ -269,7 +269,7 @@ function familyInfo(person, people){
 				if(person.parents[i] === people[j].id){ //Compares persons parent id/ids to the ids in the database and if true...
 					let parentName = people[j].firstName + " " + people[j].lastName; //Combine the first name and last name
 					parentSet.push(parentName); //Insert into the next available spot in the array
-					//Code for siblings
+					//Get siblings from current parent
 					siblings = descendantInfo(people[j], people, false);
 					siblings = (siblings.map(function(el){
 						return el.firstName + " " + el.lastName;
