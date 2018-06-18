@@ -143,8 +143,6 @@ function searchByWeight(people){
 }
 
 function mainMenu(person, people){
-
-
 	if(!person){
 		alert("Could not find that individual.");
 		return app(people);
@@ -200,7 +198,6 @@ function searchByName(people){
 		alert("We couldn't find the person you were looking for.");
 		searchByName(people);
 	}
-
 }
 
 function displayPeople(people){
@@ -221,7 +218,6 @@ function displayPerson(person){
 }
 
 function descendantInfo(person, people, getAllDescendants){
-
 	let descendantsArray = people.filter(function(el){
 		for(let i = 0; i < el.parents.length; i++){
 			if(person.id === el.parents[i]){
@@ -265,18 +261,18 @@ function familyInfo(person, people){
 		siblingSet.splice(0,1);
 	}
 
-		if (siblingSet[0] !== undefined){
-	    if (siblingSet[0].indexOf(person.firstName+" "+person.lastName)!==-1){
-	      let indexOfStart = siblingSet[0].indexOf(person.firstName+" "+person.lastName);
-	      let indexOfEnd = indexOfStart+person.firstName.length+person.lastName.length+1;
-	      let forwardString = siblingSet[0].slice(0,indexOfStart);
-	      let rearString = siblingSet[0].slice(indexOfEnd+2,siblingSet[0].length);
-	      siblingSet[0] = forwardString+rearString;
-	      if (siblingSet[0].slice(siblingSet[0].length-1) === " "){
-	        siblingSet[0] = siblingSet[0].slice(0,siblingSet[0].length-2);
-	      }
-	    }
+	if (siblingSet[0] !== undefined){
+		if (siblingSet[0].indexOf(person.firstName+" "+person.lastName)!==-1){
+			let indexOfStart = siblingSet[0].indexOf(person.firstName+" "+person.lastName);
+			let indexOfEnd = indexOfStart+person.firstName.length+person.lastName.length+1;
+			let forwardString = siblingSet[0].slice(0,indexOfStart);
+			let rearString = siblingSet[0].slice(indexOfEnd+2,siblingSet[0].length);
+			siblingSet[0] = forwardString+rearString;
+			if (siblingSet[0].slice(siblingSet[0].length-1) === " "){
+				siblingSet[0] = siblingSet[0].slice(0,siblingSet[0].length-2);
+			}
 		}
+	}
 
 	let childArray = descendantInfo(person, people, false);
 	let childSet = childArray.map(function(el){
@@ -293,7 +289,6 @@ function familyInfo(person, people){
 	}else if(person.currentSpouse === null){
 		spouseSet.push("No spouse found");
 	}
-	console.log(siblingSet);
 	if(siblingSet < 1){
 		siblingSet.unshift("No siblings found");
 	}
@@ -305,10 +300,7 @@ function familyInfo(person, people){
 	if(childSet.length < 1){
 		childSet.push("No children found");
 	}
-
 	let displayString = "Parents: " + parentSet.join(", ") + "\nSiblings: " + siblingSet[0] + "\nSpouse: " + spouseSet[0] + "\nChildren: " + childSet.join(", ");
-
-
 	alert(displayString);
 }
 
