@@ -212,12 +212,13 @@ function searchByName(people){
 			let selectedPerson = people[i];
 			mainMenu(selectedPerson,people);
 		}
-		if(people[i].firstName.toLowerCase() !== firstName && people[i].lastName.toLowerCase() !== lastName){
-			alert("We could find the person you were looking for.");
-			searchByName(people);
-		}
 	}
-	
+
+	if(people[i].firstName.toLowerCase() !== firstName && people[i].lastName.toLowerCase() !== lastName){
+		alert("We couldn't find the person you were looking for.");
+		searchByName(people);
+	}
+
 }
 
 // alerts a list of people
@@ -283,34 +284,25 @@ function familyInfo(person, people){
 			}
 		}
 	}
-<<<<<<< HEAD
-  for (let i=0;i<siblingSet.length;i++){
-    if (siblingSet[i].indexOf(person.firstName + " " + person.lastName)!==-1){
-      let indexOfStart = siblingSet[i].indexOf(person.firstName + " " + person.lastName);
-      let indexOfEnd = indexOfStart + person.firstName.length + person.lastName.length + 1;
-      let forwardString = siblingSet[i].slice(0,indexOfStart);
-      let rearString = siblingSet[i].slice(indexOfEnd + 2,siblingSet[i].length);
-      siblingSet[i] = forwardString + rearString;
-      if (siblingSet[i].slice(siblingSet[i].length-1) === " "){
-        siblingSet[i] = siblingSet[i].slice(0,siblingSet[i].length - 2);
-=======
+
 //Remove duplicate string from array
 	if(siblingSet[0] === siblingSet[1]){
 		siblingSet.splice(0,1);
 	}
 	//Remove the subject's name from the list of his siblings
-    if (siblingSet[0].indexOf(person.firstName+" "+person.lastName)!==-1){
-      let indexOfStart = siblingSet[0].indexOf(person.firstName+" "+person.lastName);
-      let indexOfEnd = indexOfStart+person.firstName.length+person.lastName.length+1;
-      let forwardString = siblingSet[0].slice(0,indexOfStart);
-      let rearString = siblingSet[0].slice(indexOfEnd+2,siblingSet[0].length);
-      siblingSet[0] = forwardString+rearString;
-			//remove trailing punctuation
-      if (siblingSet[0].slice(siblingSet[0].length-1) === " "){
-        siblingSet[0] = siblingSet[0].slice(0,siblingSet[0].length-2);
->>>>>>> a0d0c93c531bacb88852a979d8c356435b3ff2a8
-      }
-    }
+		if (siblingSet[0] !== undefined){
+	    if (siblingSet[0].indexOf(person.firstName+" "+person.lastName)!==-1){
+	      let indexOfStart = siblingSet[0].indexOf(person.firstName+" "+person.lastName);
+	      let indexOfEnd = indexOfStart+person.firstName.length+person.lastName.length+1;
+	      let forwardString = siblingSet[0].slice(0,indexOfStart);
+	      let rearString = siblingSet[0].slice(indexOfEnd+2,siblingSet[0].length);
+	      siblingSet[0] = forwardString+rearString;
+				//remove trailing punctuation
+	      if (siblingSet[0].slice(siblingSet[0].length-1) === " "){
+	        siblingSet[0] = siblingSet[0].slice(0,siblingSet[0].length-2);
+	      }
+	    }
+		}
 
 	//Checks for children
 	let childArray = descendantInfo(person, people, false);
@@ -343,12 +335,9 @@ function familyInfo(person, people){
 	}
 
 	//Display the message
-<<<<<<< HEAD
-	displayString = "Parents: " + parentSet.join(", ") + "\nSiblings: " + siblingSet[0] + "\nSpouse: " + spouseSet[0] + "\nChildren: " + childSet.join(", ");
-	console.log(siblingSet);
-=======
+
 	let displayString = "Parents: " + parentSet.join(", ") + "\nSiblings: " + siblingSet[0] + "\nSpouse: " + spouseSet[0] + "\nChildren: " + childSet.join(", ");
->>>>>>> a0d0c93c531bacb88852a979d8c356435b3ff2a8
+
 
 	alert(displayString);
 }
